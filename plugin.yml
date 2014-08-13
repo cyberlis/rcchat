@@ -1,0 +1,19 @@
+name: RCchat
+main: MainClass
+version: 1.0
+commands:
+    rcchat:
+        description: only for admins
+        usage: only for admins
+permissions:
+    rcchat.*:
+     description: Gives access to all chat commands
+     children:
+       rcchat.nomsgdelay: true
+       rcchat.seelocalchat: true
+    rcchat.nomsgdelay:
+     description: No message delay
+     default: false
+    rcchat.seelocalchat:
+     description: Allows you to see local chat always
+     default: false
