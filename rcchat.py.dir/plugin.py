@@ -90,21 +90,22 @@ class ChatListener(PythonListener):
         
         
 class MainClass(PythonPlugin):
-            
+    """ Main class of the plugin """
     def onEnable(self):
+        log.prefix = "[RCchat]"
         self.loadConfig()
         pm = self.getServer().getPluginManager()
         self.listener = ChatListener(self)
         pm.registerEvents(self.listener, self)
-        print "[RCchat] enabled"
+        log.info("Enabled")
         
     def onDisable(self):
-        print "[RCchat] disabled"
+        log.info("Disabled")
 
     def onCommand(self, sender, command, label, args):
         if args[0] == "reload" and (sender.isOp() or isinstance(sender, ConsoleCommandSender)):
             self.loadConfig()
-            print "RCchat config reloaded"
+            sender.sendMessage("[RCchat] config reloaded")
             return True
         return False
     
@@ -139,5 +140,6 @@ class MainClass(PythonPlugin):
             f = ioopen("plugins/" + name + "/config.json", "w", encoding="utf-8")
             f.write(unicode(json.dumps(self.pluginCfg, indent=4, ensure_ascii=False)))
             f.close()
+            
     def getPluginCfg(self):
         return self.pluginCfg
